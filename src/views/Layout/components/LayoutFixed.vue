@@ -1,21 +1,25 @@
 <script setup>
-import { useScroll } from '@vueuse/core'
-import {useCategoryStore} from "@/stores/category";
+import { useScroll } from "@vueuse/core";
+import { useCategoryStore } from "@/stores/category";
 //获取滚动距离
-const {y} = useScroll(window)
+const { y } = useScroll(window);
 const categoryStore = useCategoryStore();
-
 </script>
 
 <template>
-  {{y}}
-  <div class="app-header-sticky " :class="{show:y > 78}">
+  <div class="app-header-sticky" :class="{ show: y > 78 }">
     <div class="container">
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
-      <ul class="app-header-nav ">
-        <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink to="/">{{item.name}}</RouterLink>
+      <ul class="app-header-nav">
+        <li
+          class="home"
+          v-for="item in categoryStore.categoryList"
+          :key="item.id"
+        >
+          <RouterLink active-class="active" :to="`/category/${item.id}`">
+            {{ item.name }}
+          </RouterLink>
         </li>
       </ul>
 
@@ -27,8 +31,7 @@ const categoryStore = useCategoryStore();
   </div>
 </template>
 
-
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .app-header-sticky {
   width: 100%;
   height: 80px;
